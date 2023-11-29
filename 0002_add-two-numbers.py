@@ -8,71 +8,22 @@ class ListNode:
         self.next = next
 
 
-class Solution1:
-    def addTwoNumbers(
-        self, l1: Optional[ListNode], l2: Optional[ListNode]
-    ) -> Optional[ListNode]:
-        out_head = ListNode()
-
-        buff1: Optional[ListNode] = l1
-        buff2: Optional[ListNode] = l2
-        carry: int = 0
-        _sum: int = 0
-        prev: ListNode = out_head
-        curr: ListNode
-        while (buff1 != None) or (buff2 != None):
-            _sum = (
-                (buff1.val if buff1 is not None else 0)
-                + (buff2.val if buff2 is not None else 0)
-                + carry
-            )
-            curr = ListNode(_sum % 10)
-            carry = _sum // 10
-
-            prev.next = curr
-            prev = curr
-
-            if buff1 is not None:
-                buff1 = buff1.next
-            if buff2 is not None:
-                buff2 = buff2.next
-
-        if carry != 0:
-            prev.next = ListNode(carry)
-
-        return out_head.next if out_head.next != None else out_head
-
-
 class Solution:
     def addTwoNumbers(
         self, l1: Optional[ListNode], l2: Optional[ListNode]
     ) -> Optional[ListNode]:
         out_head = ListNode()
-
-        buff1: Optional[ListNode] = l1
-        buff2: Optional[ListNode] = l2
-        carry: int = 0
-        _sum: int = 0
-        prev: ListNode = out_head
-        curr: ListNode
-        while (buff1 != None) or (buff2 != None):
-            _sum = (
-                (buff1.val if buff1 is not None else 0)
-                + (buff2.val if buff2 is not None else 0)
-                + carry
-            )
-            curr = ListNode(_sum % 10)
+        carry = 0
+        curr = out_head
+        while (l1 != None) or (l2 != None) or (carry != 0):
+            _sum = (l1.val if l1 else 0) + (l2.val if l2 else 0) + carry
             carry = _sum // 10
+            curr.next = ListNode(_sum % 10)
+            curr = curr.next
 
-            prev.next = curr
-            prev = curr
+            if l1 is not None:
+                l1 = l1.next
+            if l2 is not None:
+                l2 = l2.next
 
-            if buff1 is not None:
-                buff1 = buff1.next
-            if buff2 is not None:
-                buff2 = buff2.next
-
-        if carry != 0:
-            prev.next = ListNode(carry)
-
-        return out_head.next if out_head.next != None else out_head
+        return out_head.next
