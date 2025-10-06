@@ -14,7 +14,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checking out repository..."
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: "Installing and configuring the nix package manager..."
         uses: DeterminateSystems/nix-installer-action@main
         with:
